@@ -33,8 +33,8 @@ def count_package_function(net):
 def partition_function(net):
     nb_partition = len(net.mc_list)
     for node in net.node:
-        if (1000 - node.check_point[-1]["time"]) > 50:
-            node.set_check_point(1000)
+        if (200 - node.check_point[-1]["time"]) > 50:
+            node.set_check_point(200)
     sorted_list_node = sorted(net.node, key=lambda x: x.angle)
     ttl = 0                                         # Total trafic load = Sum of average energy consumption of each node
     for node in net.node:

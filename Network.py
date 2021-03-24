@@ -97,10 +97,10 @@ class Network:
                 for mc in self.mc_list:
                     print("\tMC#{} at{} is {}".format(mc.id, mc.current, mc.get_status()))
             state = self.run_per_second(t, optimizer)
-            if t == 1000:
+            if t == 200:
                 for index, node in enumerate(self.node):
-                    if (t - node.check_point[-1]["time"]) > 50:
-                        node.set_check_point(t)
+                    # if (t - node.check_point[-1]["time"]) > 50:
+                    node.set_check_point(t)
                 self.partition()
             # if not (t - 1) % 50:
             #     for mc in self.mc_list:
@@ -172,7 +172,7 @@ class Network:
         N_coverage = (mc.energy - self.D_avg[region]*mc.e_move/mc.velocity) / (self.D_avg[region]*mc.e_move/mc.velocity + E_max)
         T_coverage = (N_coverage + 1)*(self.D_avg[region]/mc.velocity) + N_coverage*E_max/0.04
         for node in self.partitioned_node[region]:
-            if (1000 - node.check_point[-1]["time"]) > 50:
+            if (t - node.check_point[-1]["time"]) > 50:
                 node.set_check_point(t)
             C_thresh = node.avg_energy*T_coverage*len(self.partitioned_node[region])/N_coverage
             if node.energy < C_thresh:
