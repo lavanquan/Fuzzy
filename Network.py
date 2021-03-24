@@ -97,7 +97,7 @@ class Network:
                 for mc in self.mc_list:
                     print("\tMC#{} at{} is {}".format(mc.id, mc.current, mc.get_status()))
             state = self.run_per_second(t, optimizer)
-            if t == 200:
+            if t == 1000:
                 for index, node in enumerate(self.node):
                     if (t - node.check_point[-1]["time"]) > 50:
                         node.set_check_point(t)
