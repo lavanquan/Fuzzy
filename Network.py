@@ -87,12 +87,21 @@ class Network:
 
     def simulate_lifetime(self, optimizer, file_name="log/energy_log.csv", D_max_func=get_D_max, ECR_max_func=get_ECR_max):
         energy_log = open(file_name, "w")
+        node_log = open('log/dead_node.csv', 'w')
         writer = csv.DictWriter(energy_log, fieldnames=["time", "mc energy", "min energy"])
         writer.writeheader()
+        node_writer = csv.DictWriter(node_log, fieldnames=['time', 'dead_node'])
+        node_writer.writeheader()
+        node_log.close()
         t = 0
-        while self.node[self.find_min_node()].energy >= 0 and t <= 2000000:
+        while t <= 2000000:
             t = t + 1
             if (t-1) % 100 == 0:
+                node_log = open('log/dead_node.csv', 'a')
+                node_writer = csv.DictWriter(node_log, fieldnames=['time', 'dead_node'])
+                node_writer.writerow({"time" : t, "dead_node" : self.count_dead_node()})
+                node_log.close()
+                print('number of dead node: {}'.format(self.count_dead_node()))
                 print("time = ", t, ", lowest enegy node: ", self.node[self.find_min_node()].energy, "at", self.node[self.find_min_node()].location)
                 for mc in self.mc_list:
                     print("\tMC#{} at{} is {}".format(mc.id, mc.current, mc.get_status()))
