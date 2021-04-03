@@ -11,7 +11,7 @@ from scipy import mean
 
 
 experiment_type = input('experiment_type: ')
-df = pd.read_csv("data/" + experiment_type + ".csv")
+df = pd.read_csv("new_data/" + experiment_type + ".csv")
 experiment_index = int(input('experiment_index: '))
 output_file = open("log/q_learning_confident3.csv", "w")
 result = csv.DictWriter(output_file, fieldnames=["nb run", "lifetime"])
